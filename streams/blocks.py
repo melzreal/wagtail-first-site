@@ -49,26 +49,12 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         icon = "edit"
         label = "Simple RichText"
 
-class CTABlock(blocks.StructBlock):
-# call to action block
-    title = blocks.CharBlock()
-    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
-    button_page = blocks.PageChooserBlock(required=False)
-    button_url = blocks.URLBlock(required=False)
-    button_text = blocks.CharBlock(required=True, default='Learn More', max_length=40)
-
-    class Meta:
-        template = "streams/cta_block.html"
-        icon = "placeholder"
-        label = "Call to Action"
-
 # the LinkStructValue class is just a way of moving logic away from the templates
 # instead of having the if else within the template, we define that here
 # so then we can just call self.url within the ButtonBlock html
 # the reason we call self instead of the url is because the value belongs to Struct
 
 class LinkStructValue(blocks.StructValue):
-
     def url(self):
         button_page = self.get('button_page')
         button_url = self.get('button_url')
@@ -86,4 +72,17 @@ class ButtonBlock(blocks.StructBlock):
         template = "streams/button_block.html"
         icon = "placeholder"
         label = "Single Button"
+        value_class = LinkStructValue
+
+class CTABlock(blocks.StructBlock):
+# call to action block
+    title = blocks.CharBlock()
+    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
+    button_page = blocks.PageChooserBlock(required=False, help_text="If selected, this url will be used first")
+    button_url = blocks.URLBlock(required=False)
+
+    class Meta:
+        template = "streams/cta_block.html"
+        icon = "placeholder"
+        label = "Call to Action"
         value_class = LinkStructValue
