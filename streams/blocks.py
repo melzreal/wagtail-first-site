@@ -3,7 +3,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 class TitleAndTextBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text='Add your title')
-    text = blocks.TextBlock(required=True, help_text='Add aditional text')
+    text = blocks.TextBlock(required=True, help_text='Add additional text')
 
     class Meta:
         template = "streams/title_and_text_block.html"
@@ -50,7 +50,7 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         label = "Simple RichText"
 
 class CTABlock(blocks.StructBlock):
-
+# call to action block
     title = blocks.CharBlock()
     text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
     button_page = blocks.PageChooserBlock(required=False)
@@ -65,6 +65,7 @@ class CTABlock(blocks.StructBlock):
 # the LinkStructValue class is just a way of moving logic away from the templates
 # instead of having the if else within the template, we define that here
 # so then we can just call self.url within the ButtonBlock html
+# the reason we call self instead of the url is because the value belongs to Struct
 
 class LinkStructValue(blocks.StructValue):
 
