@@ -6,9 +6,9 @@
   {% for post in posts %}
   <div class="row">
     <div class="col-sm-4">
-      {% image post.blog_image fill-250x250 as blog_img %}
+      {% image post.banner_image fill-250x250 as banner_image %}
       <a href="{{ post.url }}">
-        <img src="{{ blog_img.url}}" alt="Blog image">
+        <img src="{{ banner_image.url}}" alt="Blog image">
       </a>
     </div>
     <div class="col-sm-8">

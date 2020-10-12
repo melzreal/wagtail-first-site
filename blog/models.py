@@ -32,7 +32,7 @@ class BlogDetailPage(Page):
         help_text='Overwrites the default title'
     )
 
-    blog_image = models.ForeignKey(
+    banner_image = models.ForeignKey(
         "wagtailimages.Image",
         blank=False,
         null=True,
@@ -54,6 +54,27 @@ class BlogDetailPage(Page):
 
     content_panels = Page.content_panels + [
           FieldPanel("custom_title"),
-          ImageChooserPanel("blog_image"),
+          ImageChooserPanel("banner_image"),
           StreamFieldPanel("content"),
     ]
+
+class ArticleBlogPage(BlogDetailPage):
+    """A subclassed blog post page for articles"""
+    template = "blog/article_blog_page.html"
+    subtitle = models.CharField(max_length=100, blank=True, null=True)
+
+    intro_image = models.ForeignKey(
+      "wagtailimages.Image",
+      blank=True,
+      null=True,
+      on_delete=models.SET_NULL,
+      help_text="Set an intro image to your article."
+    )
+
+    content_panels = Page.content_panels + [
+              FieldPanel("custom_title"),
+              FieldPanel("subtitle"),
+              ImageChooserPanel("intro_image"),
+              ImageChooserPanel("banner_image"),
+              StreamFieldPanel("content"),
+        ]

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+{% block content %}
+<div class="container">
+  {% if self.intro_image %}
+  <div class="row">
+    <div class="col-md-12">
+      {% image self.intro_image fill-500x500 as intro_image %}
+      <a href="{{ intro_image.url }}">
+        <img src="{{ intro_image.url }}" alt="{{intro_image.alt}}">
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-md-4 ">
+      <h1>
+        {% if self.custom_title %}
+        {{self.custom_title}}
+        {% else %}
+        {{self.title}}
+        {% endif %}
+      </h1>
+      <h1>
+        {% if self.subtitle %}
+        {{self.subtitle}}
+        {% endif %}
+      </h1>
+      {% image self.banner_image fill-250x250 as banner_image %}
+      <a href="{{ banner_image.url }}">
+        <img src="{{ banner_image.url }}" alt="Blog image">
+      </a>
+      <h2>
+        {% for block in self.content %}
+        {% include_block block %}
+        {% endfor %}
+      </h2>
+    </div>
+  </div>
+</div>
+{% endblock %}
