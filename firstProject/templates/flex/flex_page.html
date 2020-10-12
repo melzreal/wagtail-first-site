@@ -2,7 +2,11 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
-  {{ self.subtitle }}
+
+<div>
+  <p class="p-3">{{ self.subtitle }}</p>
+</div>
+<br>
 
   {% for block in page.content %}
     {% include_block block %}

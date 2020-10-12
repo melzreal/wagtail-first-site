@@ -12,4 +12,17 @@
   <a class="btn btn-dark btn-lg" href="#" role="button">@todo</a>
  {% endif %}
 </div>
+
+  {% for block in page.content %}
+  {% include_block block %}
+  {% endfor %}
+
+
+
+{% if settings.site_settings.SocialMediaSettings.twitter %}
+ <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Tooltip on bottom" aria-describedby="tooltip192314">
+   <a href="{{settings.site_settings.SocialMediaSettings.twitter}}"> <i class="fab fa-twitter-square fa-2x"> </i></a>
+ </button>
+{% endif %}
+
 {% endblock %}

@@ -4,7 +4,6 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.fields import StreamField
 from streams import blocks
 
-
 class FlexPage(Page):
     template = "flex/flex_page.html"
 
@@ -15,6 +14,8 @@ class FlexPage(Page):
             ("full_richtext", blocks.RichtextBlock()),
             ("simple_richtext", blocks.SimpleRichtextBlock()),
             ("card_block", blocks.CardBlock()),
+            ("cta", blocks.CTABlock()),
+            ("button_block", blocks.ButtonBlock()),
         ],
         null=True,
         blank=True

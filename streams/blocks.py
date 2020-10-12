@@ -24,16 +24,16 @@ class CardBlock(blocks.StructBlock):
       )
     )
     class Meta:
-      template = "streams/card-block.html"
-      icon = "placeholder"
-      label = "Cards"
+        template = "streams/card_block.html"
+        icon = "placeholder"
+        label = "Cards"
 
 class RichtextBlock(blocks.RichTextBlock):
 
     class Meta:
-      template = "streams/richtext_block.html"
-      icon = "doc-full"
-      label = "Full RichText"
+        template = "streams/richtext_block.html"
+        icon = "doc-full"
+        label = "Full RichText"
 
 class SimpleRichtextBlock(blocks.RichTextBlock):
     def __init__(self, required=True, help_text=None, editor='default', features=None, **kwargs):
@@ -45,6 +45,44 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
-      template = "streams/richtext_block.html"
-      icon = "edit"
-      label = "Simple RichText"
+        template = "streams/richtext_block.html"
+        icon = "edit"
+        label = "Simple RichText"
+
+class CTABlock(blocks.StructBlock):
+
+    title = blocks.CharBlock()
+    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
+    button_page = blocks.PageChooserBlock(required=False)
+    button_url = blocks.URLBlock(required=False)
+    button_text = blocks.CharBlock(required=True, default='Learn More', max_length=40)
+
+    class Meta:
+        template = "streams/cta_block.html"
+        icon = "placeholder"
+        label = "Call to Action"
+
+# the LinkStructValue class is just a way of moving logic away from the templates
+# instead of having the if else within the template, we define that here
+# so then we can just call self.url within the ButtonBlock html
+
+class LinkStructValue(blocks.StructValue):
+
+    def url(self):
+        button_page = self.get('button_page')
+        button_url = self.get('button_url')
+        if button_page:
+            return button_page.url
+        elif button_url:
+            return button_url
+        return None
+
+class ButtonBlock(blocks.StructBlock):
+    button_page = blocks.PageChooserBlock(required=False, help_text="If selected, this url will be used first")
+    button_url = blocks.URLBlock(required=False)
+
+    class Meta:
+        template = "streams/button_block.html"
+        icon = "placeholder"
+        label = "Single Button"
+        value_class = LinkStructValue
